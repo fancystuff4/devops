@@ -1,0 +1,3 @@
+  handlers:
+          - name: task done
+            action: service name=httpd state=restarted # handler part (notify name should match)

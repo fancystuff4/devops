@@ -1,0 +1,7 @@
+FROM ubuntu
+VOLUME [/data] #creating a volume from container
+WORKDIR /tmp
+RUN echo "hello" > /tmp/testfile
+RUN apt-get install mysql -y 
+ENV myname qayyum
+ADD test.tar.gz /tmp 

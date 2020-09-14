@@ -1,0 +1,21 @@
+--- # 1 example
+- hosts: demo           #---------
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: yes     #target part
+  vars:                  #----------
+          pkgname: httpd  #variable part
+  tasks:                                                        #--------
+          - name: install https server on hosts
+            action: yum name='{{pkgname}}' state=installed      #task part
+            notify: task done           #--------
+          - name: add a list of user
+            user: name='{{ item }}' state=present   #-----
+            with_items:
+                    -Raj
+                    -Raheem
+                    -Salman                        # looping part
+  handlers:
+          - name: task done
+            action: service name=httpd state=restarted # handler part (notify name should match)

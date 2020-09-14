@@ -1,0 +1,22 @@
+--- # 2 example
+- hosts: demo           #---------
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: yes     #target part
+  vars:                  #----------
+          pkgname: httpd  #variable part
+  tasks:                                                        #--------
+          - name: install apache server on hosts which are debian
+            command: apt-get -y install apache2
+            when: ansible_os_family == "Debain"
+            notify: apache2 installed                           #--------
+          - name: install httpd service restart
+            command: yum -y install httpd
+            when: ansible_os_family == "Unix-like"
+            notify: httpd installed                             #condition part
+  handlers:
+          - name: apache2 installed
+            action: service name=apache2 state=restarted
+          - name: httpd installed
+            action: service name=httpd state=restarted # handler part (name should match notify)

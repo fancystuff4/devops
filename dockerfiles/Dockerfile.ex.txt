@@ -1,0 +1,7 @@
+FROM ubuntu
+WORKDIR /tmp
+RUN echo "hello" > /tmp/testfile
+RUN apt-get install mysql -y 
+ENV myname qayyum
+COPY testfile1 /tmp #testfile1 should be current directory
+ADD test.tar.gz /tmp 
